@@ -1,0 +1,137 @@
+:root{
+    /*--game-width:min(49.6vw, 100vh);*/
+    --game-width:min(100vw, 100vh);
+    --game-height:calc(152/150 * var(--game-width));
+    --card-aspect-ratio: 0.645;
+    --card-width: calc(0.088 * var(--game-width));
+    --card-animation-duration:0.5s;
+}
+*,*:before,*:after{
+	box-sizing:border-box;
+}
+html,body{
+    width: 100vw;
+    height: 100vh;
+    /*background-color: black;*/
+	color:var(--color-text);
+    padding: 0;
+    margin: 0;
+	font-style:normal;
+	font-weight:normal;
+	font-size:20px;
+	line-height:1.1;
+	letter-spacing: 0.4;
+	word-break: break-word;
+}
+.game{
+    position: relative;
+    background-image: url('../svg/plateau.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: inline-block;
+    margin: 0 auto;
+    
+    width: var(--game-width);
+    aspect-ratio: 152/150;
+}
+.pile{
+    position: absolute;
+    width: var(--card-width);
+    aspect-ratio: var(--card-aspect-ratio);
+    /*border: 2px solid #FF0000;*/
+
+}
+.pile.graveyard{
+    left: calc(0.789 * var(--game-width));
+    top: calc(0.294 * var(--game-height));
+}
+.pile.deck{
+    left: calc(0.789 * var(--game-width));
+    top: calc(0.458 * var(--game-height));
+}
+.pile.hand{
+    left: calc(0.36 * var(--game-width));
+    top: calc(0.71 * var(--game-height));
+}
+.pile.columnColorH{
+    left: calc(0.122 * var(--game-width));
+    top: calc(0.375* var(--game-height));
+}
+.pile.columnColorD{
+    left: calc(0.232 * var(--game-width));
+    top: calc(0.375* var(--game-height));
+}
+.pile.columnColorC{
+    left: calc(0.343 * var(--game-width));
+    top: calc(0.375* var(--game-height));
+}
+.pile.columnColorS{
+    left: calc(0.453 * var(--game-width));
+    top: calc(0.375* var(--game-height));
+}
+
+.pile.ColumnKJH{
+    left: calc(0.122 * var(--game-width));
+    top: calc(0.526* var(--game-height));
+}
+.pile.ColumnKJD{
+    left: calc(0.232 * var(--game-width));
+    top: calc(0.526* var(--game-height));
+}
+.pile.ColumnKJC{
+    left: calc(0.344 * var(--game-width));
+    top: calc(0.526* var(--game-height));
+}
+.pile.ColumnKJS{
+    left: calc(0.453 * var(--game-width));
+    top: calc(0.526* var(--game-height));
+}
+.card{
+    position: absolute;
+    width: var(--card-width);
+    aspect-ratio:  0.645;
+    cursor: pointer;
+
+    left: 0;
+    top: 0;
+
+    perspective: 800px;
+    perspective-origin: 50% 50%;
+    transform-origin: 50% 100%;
+
+    transition: all var(--card-animation-duration);
+}
+.card>.flip{
+    position: relative;
+    width: var(--card-width);
+    aspect-ratio:  0.645;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    transform: rotateY(180deg);
+}
+/*
+.card:hover .flip{
+    transform: rotateY(0deg);
+}*/
+.card.visible>.flip{
+    transform: rotateY(0deg);
+}
+.card .front, .card .back{
+    position: absolute;
+    width: var(--card-width);
+    background-repeat: no-repeat;
+    background-size: contain;
+    aspect-ratio: var(--card-aspect-ratio);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;    
+}
+.card .front{
+    transform: rotateY(0deg);
+}
+.card .back{
+    background-image: url('../svg/BackBlack.svg');
+    transform: rotateY(180deg);
+}
+.card.disabled{
+    pointer-events: none;
+}
